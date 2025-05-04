@@ -187,12 +187,12 @@ export default function App() {
               mb={4}
               sx={{ fontWeight: 600 }}
             >
-              {filteredIcons.length} icons found
+              {filteredIcons.length} AWS services found
             </Typography>
 
             <Grid container spacing={3} justifyContent="center">
               {filteredIcons.map(({ filename, displayName, url }, index) => (
-                <Grid item key={index} sx={{ width: 225 }}>
+                <Grid item key={index} sx={{ width: 220 }}>
                   <Box
                     display="flex"
                     flexDirection="column"
@@ -204,7 +204,7 @@ export default function App() {
                       border: "1px solid",
                       borderColor: "divider",
                       transition: "0.2s",
-                      height: 275,
+                      height: 240,
                       overflow: "hidden",
                       ":hover": {
                         boxShadow: 4,
@@ -219,7 +219,7 @@ export default function App() {
                       sx={{
                         wordBreak: "break-word",
                         fontWeight: 600,
-                        fontSize: "1rem",
+                        fontSize: "0.85rem",
                       }}
                     >
                       {displayName}
@@ -227,7 +227,7 @@ export default function App() {
                     <img
                       src={url}
                       alt={filename}
-                      style={{ width: 100, height: 100, objectFit: "contain" }}
+                      style={{ width: 85, height: 85, objectFit: "contain" }}
                     />
                     <Box mt={1} width="100%">
                       <Button
