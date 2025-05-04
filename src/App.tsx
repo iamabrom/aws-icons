@@ -35,6 +35,12 @@ const sortedIcons = Object.entries(iconsByFolder)
   .sort(([a], [b]) => a.localeCompare(b))
   .flatMap(([_, icons]) => icons.sort((a, b) => a.filename.localeCompare(b.filename)));
 
+function getFontSize(displayName: string): string {
+  if (displayName.length > 36) return "0.75rem";
+  if (displayName.length > 30) return "0.85rem";
+  return "0.95rem";
+}
+
 export default function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [search, setSearch] = useState("");
@@ -50,7 +56,7 @@ export default function App() {
             default: darkMode ? "#121212" : "#f9f9f9",
           },
           primary: {
-            main: "#f59e0b",
+            main: darkMode ? "#f59e0b" : "#000000",
           },
         },
         typography: {
@@ -61,9 +67,12 @@ export default function App() {
     [darkMode]
   );
 
-  const filteredIcons = sortedIcons.filter((icon) =>
-    icon.filename.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredIcons = sortedIcons.filter((icon) => {
+    const rawName = icon.filename.toLowerCase();
+    const display = icon.displayName.toLowerCase();
+    const keyword = search.toLowerCase();
+    return rawName.includes(keyword) || display.includes(keyword);
+  });
 
   const copyImageToClipboard = async (url: string, index: number) => {
     const blob = await fetch(url).then((res) => res.blob());
@@ -109,7 +118,7 @@ export default function App() {
       >
         <Box
           component="header"
-          py={4}
+          py={3}
           px={2}
           borderBottom={1}
           borderColor="divider"
@@ -122,12 +131,16 @@ export default function App() {
           }}
         >
           <Container maxWidth="lg">
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="100%"
-            >
+            <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
+              <Box display="flex" alignItems="center" gap={2}>
+                <img src="/awslogo.png" alt="AWS Icons Logo" style={{ height: 60 }} />
+                <Typography variant="h5" fontWeight={600}>
+                  AWS Service Architecture Icons
+                </Typography>
+                <Typography fontWeight={100}>
+                  <a href="https://aws.amazon.com/architecture/icons/" target="_blank">(source)</a>
+                </Typography>
+              </Box>
               <Box
                 display="flex"
                 alignItems="center"
@@ -136,7 +149,7 @@ export default function App() {
               >
                 <TextField
                   variant="outlined"
-                  placeholder="Search icons..."
+                  placeholder="Search AWS service icons..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   InputProps={{
@@ -145,17 +158,14 @@ export default function App() {
                         <Search color="primary" />
                       </InputAdornment>
                     ),
-                    endAdornment: search && (
-                      <InputAdornment position="end">
-                        <IconButton
-                          size="small"
-                          onClick={() => setSearch("")}
-                          edge="end"
-                        >
-                          <Clear fontSize="small" />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
+                    endAdornment:
+                      search && (
+                        <InputAdornment position="end">
+                          <IconButton size="small" onClick={() => setSearch("")} edge="end">
+                            <Clear fontSize="small" />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
                   }}
                   fullWidth
                   sx={{
@@ -168,25 +178,16 @@ export default function App() {
                   {darkMode ? <Brightness7 /> : <Brightness4 />}
                 </IconButton>
               </Box>
+              {/* <Typography fontWeight={200}>
+                  <a href="https://aws.amazon.com/architecture/icons/" target="_blank">AWS architecture icons</a>
+                </Typography> */}
             </Box>
           </Container>
         </Box>
 
-        <Box
-          flex={1}
-          py={4}
-          px={2}
-          display="flex"
-          flexDirection="column"
-          width="100%"
-        >
+        <Box flex={1} py={2} px={2} display="flex" flexDirection="column" width="100%">
           <Container maxWidth="xl">
-            <Typography
-              variant="h5"
-              align="center"
-              mb={4}
-              sx={{ fontWeight: 600 }}
-            >
+            <Typography variant="h5" align="center" mb={4} sx={{ fontWeight: 600 }}>
               {filteredIcons.length} AWS services found
             </Typography>
 
@@ -197,33 +198,40 @@ export default function App() {
                     display="flex"
                     flexDirection="column"
                     alignItems="center"
-                    p={2}
+                    p={1}
                     borderRadius={3}
                     bgcolor="background.paper"
                     sx={{
                       border: "1px solid",
                       borderColor: "divider",
                       transition: "0.2s",
-                      height: 240,
+                      height: 225,
                       overflow: "hidden",
                       ":hover": {
                         boxShadow: 4,
                       },
                     }}
                   >
-                    <Typography
-                      variant="subtitle2"
-                      mb={1}
-                      color="text.primary"
-                      textAlign="center"
-                      sx={{
-                        wordBreak: "break-word",
-                        fontWeight: 600,
-                        fontSize: "0.85rem",
-                      }}
+                    <Box
+                      minHeight={45}
+                      width="100%"
+                      display="flex"
+                      alignItems="flex-start"
+                      justifyContent="center"
                     >
-                      {displayName}
-                    </Typography>
+                      <Typography
+                        variant="subtitle2"
+                        color="text.primary"
+                        textAlign="center"
+                        sx={{
+                          wordBreak: "break-word",
+                          fontWeight: 600,
+                          fontSize: getFontSize(displayName),
+                        }}
+                      >
+                        {displayName}
+                      </Typography>
+                    </Box>
                     <img
                       src={url}
                       alt={filename}
