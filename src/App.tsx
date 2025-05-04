@@ -3,7 +3,7 @@ import {
   Button,
   Container,
   CssBaseline,
-  Grid,
+  GridLegacy,
   IconButton,
   InputAdornment,
   TextField,
@@ -133,12 +133,12 @@ export default function App() {
           <Container maxWidth="lg">
             <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
               <Box display="flex" alignItems="center" gap={2}>
-                <img src="/awslogo.png" alt="AWS Icons Logo" style={{ height: 60 }} />
+                <a href="https://iamabrom.github.io/aws-icons/"><img src="./awslogo.png" alt="AWS Icons Logo" style={{ height: 60 }} /></a>
                 <Typography variant="h5" fontWeight={600}>
                   AWS Service Architecture Icons
                 </Typography>
                 <Typography fontWeight={100}>
-                  <a href="https://aws.amazon.com/architecture/icons/" target="_blank">(source)</a>
+                  <a href="https://aws.amazon.com/architecture/icons/" target="_blank">Icon Source</a> | <a href="https://github.com/iamabrom/aws-icons" target="_blank">GitHub Repo</a>
                 </Typography>
               </Box>
               <Box
@@ -178,22 +178,19 @@ export default function App() {
                   {darkMode ? <Brightness7 /> : <Brightness4 />}
                 </IconButton>
               </Box>
-              {/* <Typography fontWeight={200}>
-                  <a href="https://aws.amazon.com/architecture/icons/" target="_blank">AWS architecture icons</a>
-                </Typography> */}
             </Box>
           </Container>
         </Box>
 
         <Box flex={1} py={2} px={2} display="flex" flexDirection="column" width="100%">
           <Container maxWidth="xl">
-            <Typography variant="h5" align="center" mb={4} sx={{ fontWeight: 600 }}>
-              {filteredIcons.length} AWS services found
+            <Typography variant="h6" align="center" mb={4} sx={{ fontWeight: 200 }}>
+              {filteredIcons.length} AWS service icon(s) found
             </Typography>
 
-            <Grid container spacing={3} justifyContent="center">
+            <GridLegacy container spacing={3} justifyContent="center">
               {filteredIcons.map(({ filename, displayName, url }, index) => (
-                <Grid item key={index} sx={{ width: 220 }}>
+                <GridLegacy item key={index} sx={{ width: 220 }}>
                   <Box
                     display="flex"
                     flexDirection="column"
@@ -267,9 +264,9 @@ export default function App() {
                       </Button>
                     </Box>
                   </Box>
-                </Grid>
+                </GridLegacy>
               ))}
-            </Grid>
+            </GridLegacy>
           </Container>
         </Box>
 
