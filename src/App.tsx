@@ -53,7 +53,7 @@ export default function App() {
         palette: {
           mode: darkMode ? "dark" : "light",
           background: {
-            default: darkMode ? "#121212" : "#f9f9f9",
+            default: darkMode ? "#121212" : "f9f9f9",
           },
           primary: {
             main: darkMode ? "#f59e0b" : "#000000",
@@ -132,20 +132,28 @@ export default function App() {
         >
           <Container maxWidth="lg">
             <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
-              <Box display="flex" alignItems="center" gap={2}>
-                <a href="https://iamabrom.github.io/aws-icons/"><img src="./awslogo.png" alt="AWS Icons Logo" style={{ height: 60 }} /></a>
-                <Typography variant="h5" fontWeight={600}>
+              <Box
+                display="flex"
+                alignItems="center"
+                gap={2}
+                flexDirection={{ xs: "column", sm: "row" }}
+              >
+                <a href="https://iamabrom.github.io/aws-icons/">
+                  <img src="./awslogo.png" alt="AWS Icons Logo" style={{ height: 60 }} />
+                </a>
+                <Typography variant="h5" fontWeight={600} textAlign="center">
                   AWS Service Architecture Icons
                 </Typography>
-                <Typography fontWeight={100}>
-                  <a href="https://aws.amazon.com/architecture/icons/" target="_blank">Icon Source</a> | <a href="https://github.com/iamabrom/aws-icons" target="_blank">GitHub Repo</a>
+                <Typography fontWeight={100} textAlign="center">
+                  <a href="https://aws.amazon.com/architecture/icons/" target="_blank">Icon Source</a> |
+                  <a href="https://github.com/iamabrom/aws-icons" target="_blank"> GitHub Repo</a>
                 </Typography>
               </Box>
               <Box
                 display="flex"
                 alignItems="center"
                 gap={2}
-                sx={{ width: 800, minWidth: 800, maxWidth: 800 }}
+                sx={{ width: "100%", maxWidth: 800, minWidth: 300 }}
               >
                 <TextField
                   variant="outlined"
@@ -188,9 +196,9 @@ export default function App() {
               {filteredIcons.length} AWS service icon(s) found
             </Typography>
 
-            <GridLegacy container spacing={3} justifyContent="center">
+            <GridLegacy container spacing={3}>
               {filteredIcons.map(({ filename, displayName, url }, index) => (
-                <GridLegacy item key={index} sx={{ width: 220 }}>
+                <GridLegacy item key={index} xs={12} sm={6} md={4} lg={2} xl={2}>
                   <Box
                     display="flex"
                     flexDirection="column"
