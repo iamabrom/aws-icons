@@ -14,7 +14,7 @@ import {
 import { Brightness4, Brightness7, Search, Clear } from "@mui/icons-material";
 import { useEffect, useMemo, useState } from "react";
 
-const rawIcons = import.meta.glob("./assets/icons/services/**/*.png", {
+const rawIcons = import.meta.glob("./assets/icons/**/*.png", {
   eager: true,
   query: "?url",
   import: "default",
@@ -149,7 +149,7 @@ export default function App() {
               >
                 <TextField
                   variant="outlined"
-                  placeholder="Search AWS service icons..."
+                  placeholder="Search AWS service & resource icons..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   InputProps={{
@@ -185,7 +185,7 @@ export default function App() {
         <Box flex={1} py={2} px={2} display="flex" flexDirection="column" width="100%">
           <Container maxWidth="xl">
             <Typography variant="h6" align="center" mb={4} sx={{ fontWeight: 200 }}>
-              {filteredIcons.length} AWS service icon(s) found
+              {filteredIcons.length} AWS service & resource icon(s) found
             </Typography>
 
             <GridLegacy container spacing={3} justifyContent="center">
