@@ -17,9 +17,10 @@ $ bash svg-to-png.sh <sourceDirectory> <destinationDirectory> <imageSize>
 $ bash svg-to-png.sh ./Asset-Package ./Asset-Package-Processed 250
 ```
 
-This script will also generate a log file within the active directly in which you are running this script from.
+This script will also generate a log file within the current directory in which you are running this script from.
 
 Depending on your OS, you may have to modify the script to point to the binary. For example if running on MacOS your binary may be located here: `INKSCAPE_BIN="/Applications/Inkscape.app/Contents/MacOS/inkscape"`
 
 Within the script file you would need to update `INKSCAPE_BIN` to the location of where the Inkscape binary is installed on your machine.
 
+Note: the value you use for the the image size will set is the width of the image, the original aspect ratio of the image will be maintained.
