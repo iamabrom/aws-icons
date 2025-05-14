@@ -2,9 +2,9 @@
 
 ## Convert SVGs to PNGs
 
-The default AWS resource icons currently include PNG files with 48px resolution. Use the `svg-to-png.sh` script to batch convert the SVG sources files into large PNG files.
+The default AWS resource icons currently include PNG files with 48px resolution. Use the [svg-to-png.sh](https://github.com/iamabrom/aws-icons/blob/main/utils/svg-to-png.sh) script to batch convert the SVG sources files into large PNG files.
 
-This relies on the FOSS [Inkscape]([https://inkscape.org/) application. More specifically, it relies on [Inkscape CLI](https://wiki.inkscape.org/wiki/Using_the_Command_Line).
+This relies on the FOSS [Inkscape](https://inkscape.org/) application. More specifically, it relies on [Inkscape CLI](https://wiki.inkscape.org/wiki/Using_the_Command_Line).
 
 **Usage**:
 
