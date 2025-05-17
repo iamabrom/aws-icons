@@ -22,24 +22,27 @@ const rawIcons = import.meta.glob("./assets/icons/**/*.png", {
 }) as Record<string, string>;
 
 const iconsByFolder: Record<string, { filename: string; displayName: string; url: string; folder: string }[]> = {};
-const categoriesSet = new Set<string>();
+const serviceCategories = new Set<string>();
+const resourceCategories = new Set<string>();
 
 Object.entries(rawIcons).forEach(([path, url]) => {
   const parts = path.split("/");
   const folder = parts[parts.length - 2];
   const filename = parts[parts.length - 1];
   const displayName = filename.replace(".png", "").replace(/-/g, " ");
-  const normalizedCategory = folder.startsWith("a_") ? folder : null;
 
-  if (normalizedCategory) {
-    categoriesSet.add(normalizedCategory);
+  if (folder.startsWith("a_")) {
+    serviceCategories.add(folder);
+  } else if (folder.startsWith("b_")) {
+    resourceCategories.add(folder);
   }
 
   if (!iconsByFolder[folder]) iconsByFolder[folder] = [];
   iconsByFolder[folder].push({ filename, displayName, url, folder });
 });
 
-const allCategories = ["All", ...Array.from(categoriesSet).sort()];
+const allServiceCategories = ["All", ...Array.from(serviceCategories).sort()];
+const allResourceCategories = ["All", ...Array.from(resourceCategories).sort()];
 
 const sortedIcons = Object.entries(iconsByFolder)
   .sort(([a], [b]) => a.localeCompare(b))
@@ -54,7 +57,8 @@ function getFontSize(displayName: string): string {
 export default function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedService, setSelectedService] = useState("All");
+  const [selectedResource, setSelectedResource] = useState("All");
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
@@ -83,9 +87,19 @@ export default function App() {
     const display = icon.displayName.toLowerCase();
     const keyword = search.toLowerCase();
     const matchesSearch = rawName.includes(keyword) || display.includes(keyword);
+    // const matchesService = selectedService === "All" || icon.folder === selectedService;
+    // const matchesResource = selectedResource === "All" || icon.folder === selectedResource;
+    // return matchesSearch && (matchesService || matchesResource);
+    const inService = selectedService !== "All" && icon.folder === selectedService;
+    const inResource = selectedResource !== "All" && icon.folder === selectedResource;
     const matchesCategory =
-      selectedCategory === "All" || icon.folder === selectedCategory;
+      selectedService === "All" && selectedResource === "All"
+        ? true
+        : selectedService !== "All" && selectedResource !== "All"
+          ? inService && inResource
+          : inService || inResource;
     return matchesSearch && matchesCategory;
+
   });
 
   const copyImageToClipboard = async (url: string, index: number) => {
@@ -120,7 +134,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const formatCategoryName = (cat: string) => cat.replace(/^a_/, "").replace(/-/g, " ");
+  const formatCategoryName = (cat: string) => cat.replace(/^[ab]_/, "").replace(/-/g, " ");
 
   return (
     <ThemeProvider theme={theme}>
@@ -167,20 +181,6 @@ export default function App() {
                 sx={{ width: "100%", maxWidth: 800, minWidth: { xs: "100%", sm: 800 }, px: { xs: 2, sm: 0 } }}
               >
                 <TextField
-                  select
-                  size="small"
-                  label="Service Category"
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  sx={{ minWidth: 120 }}
-                >
-                  {allCategories.map((cat) => (
-                    <MenuItem key={cat} value={cat}>
-                      {formatCategoryName(cat)}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <TextField
                   variant="outlined"
                   placeholder="Search icons..."
                   value={search}
@@ -207,6 +207,34 @@ export default function App() {
                     flex: 1,
                   }}
                 />
+                <TextField
+                  select
+                  size="small"
+                  label="Service Category"
+                  value={selectedService}
+                  onChange={(e) => setSelectedService(e.target.value)}
+                  sx={{ minWidth: 140 }}
+                >
+                  {allServiceCategories.map((cat) => (
+                    <MenuItem key={cat} value={cat}>
+                      {formatCategoryName(cat)}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  select
+                  size="small"
+                  label="Resource Category"
+                  value={selectedResource}
+                  onChange={(e) => setSelectedResource(e.target.value)}
+                  sx={{ minWidth: 140 }}
+                >
+                  {allResourceCategories.map((cat) => (
+                    <MenuItem key={cat} value={cat}>
+                      {formatCategoryName(cat)}
+                    </MenuItem>
+                  ))}
+                </TextField>
                 <IconButton onClick={() => setDarkMode(!darkMode)}>
                   {darkMode ? <Brightness7 /> : <Brightness4 />}
                 </IconButton>
