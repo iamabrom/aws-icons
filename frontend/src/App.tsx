@@ -133,9 +133,9 @@ export default function App() {
           <Container maxWidth="lg">
             <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
               <Box display="flex" alignItems="center" gap={2} flexWrap="wrap">
-                <a href="https://iamabrom.github.io/aws-icons/"><img src="./awslogo.png" alt="AWS Icons Logo" style={{ height: 60 }} /></a>
+                <a href="https://iamabrom.github.io/aws-icons/"><img src="./awslogo.png" alt="AWS Icons Logo" style={{ height: 50 }} /></a>
                 <Typography variant="h5" fontWeight={600} textAlign="center">
-                  AWS Service Architecture Icons
+                  AWS Architecture Icons
                 </Typography>
                 <Typography fontWeight={100} textAlign="center">
                   <a href="https://aws.amazon.com/architecture/icons/" target="_blank">Icon Source</a> | <a href="https://github.com/iamabrom/aws-icons" target="_blank">GitHub Repo</a>
@@ -149,7 +149,7 @@ export default function App() {
               >
                 <TextField
                   variant="outlined"
-                  placeholder="Search AWS service & resource icons..."
+                  placeholder="Search icons..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   InputProps={{
@@ -185,7 +185,7 @@ export default function App() {
         <Box flex={1} py={2} px={2} display="flex" flexDirection="column" width="100%">
           <Container maxWidth="xl">
             <Typography variant="h6" align="center" mb={4} sx={{ fontWeight: 200 }}>
-              {filteredIcons.length} AWS service & resource icon(s) found
+              {filteredIcons.length} AWS icon(s) found
             </Typography>
 
             <GridLegacy container spacing={3} justifyContent="center">
