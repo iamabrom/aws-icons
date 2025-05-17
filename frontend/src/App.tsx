@@ -87,19 +87,15 @@ export default function App() {
     const display = icon.displayName.toLowerCase();
     const keyword = search.toLowerCase();
     const matchesSearch = rawName.includes(keyword) || display.includes(keyword);
-    // const matchesService = selectedService === "All" || icon.folder === selectedService;
-    // const matchesResource = selectedResource === "All" || icon.folder === selectedResource;
-    // return matchesSearch && (matchesService || matchesResource);
     const inService = selectedService !== "All" && icon.folder === selectedService;
     const inResource = selectedResource !== "All" && icon.folder === selectedResource;
     const matchesCategory =
       selectedService === "All" && selectedResource === "All"
         ? true
         : selectedService !== "All" && selectedResource !== "All"
-          ? inService && inResource
-          : inService || inResource;
+        ? inService && inResource
+        : inService || inResource;
     return matchesSearch && matchesCategory;
-
   });
 
   const copyImageToClipboard = async (url: string, index: number) => {
@@ -172,13 +168,16 @@ export default function App() {
                 <Typography fontWeight={100} textAlign="center">
                   <a href="https://aws.amazon.com/architecture/icons/" target="_blank">Icon Source</a> | <a href="https://github.com/iamabrom/aws-icons" target="_blank">GitHub Repo</a>
                 </Typography>
+                <IconButton onClick={() => setDarkMode(!darkMode)}>
+                  {darkMode ? <Brightness7 /> : <Brightness4 />}
+                </IconButton>
               </Box>
               <Box
                 display="flex"
                 alignItems="center"
                 gap={2}
                 flexWrap="wrap"
-                sx={{ width: "100%", maxWidth: 800, minWidth: { xs: "100%", sm: 800 }, px: { xs: 2, sm: 0 } }}
+                sx={{ width: "100%", maxWidth: 800, px: { xs: 2, sm: 0 } }}
               >
                 <TextField
                   variant="outlined"
@@ -205,15 +204,16 @@ export default function App() {
                     backgroundColor: "background.paper",
                     borderRadius: 10,
                     flex: 1,
+                    minWidth: { xs: "100%", sm: 300 },
                   }}
                 />
                 <TextField
                   select
                   size="small"
-                  label="Service Category"
+                  label="Services"
                   value={selectedService}
                   onChange={(e) => setSelectedService(e.target.value)}
-                  sx={{ minWidth: 140 }}
+                  sx={{ minWidth: 125 }}
                 >
                   {allServiceCategories.map((cat) => (
                     <MenuItem key={cat} value={cat}>
@@ -224,10 +224,10 @@ export default function App() {
                 <TextField
                   select
                   size="small"
-                  label="Resource Category"
+                  label="Resources"
                   value={selectedResource}
                   onChange={(e) => setSelectedResource(e.target.value)}
-                  sx={{ minWidth: 140 }}
+                  sx={{ minWidth: 125 }}
                 >
                   {allResourceCategories.map((cat) => (
                     <MenuItem key={cat} value={cat}>
@@ -235,9 +235,9 @@ export default function App() {
                     </MenuItem>
                   ))}
                 </TextField>
-                <IconButton onClick={() => setDarkMode(!darkMode)}>
+                {/* <IconButton onClick={() => setDarkMode(!darkMode)}>
                   {darkMode ? <Brightness7 /> : <Brightness4 />}
-                </IconButton>
+                </IconButton> */}
               </Box>
             </Box>
           </Container>
