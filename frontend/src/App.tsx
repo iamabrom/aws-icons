@@ -213,7 +213,7 @@ export default function App() {
                   label="Services"
                   value={selectedService}
                   onChange={(e) => setSelectedService(e.target.value)}
-                  sx={{ minWidth: 125 }}
+                  sx={{ minWidth: 125, maxWidth: 150 }}
                 >
                   {allServiceCategories.map((cat) => (
                     <MenuItem key={cat} value={cat}>
@@ -227,7 +227,7 @@ export default function App() {
                   label="Resources"
                   value={selectedResource}
                   onChange={(e) => setSelectedResource(e.target.value)}
-                  sx={{ minWidth: 125 }}
+                  sx={{ minWidth: 125, maxWidth: 150 }}
                 >
                   {allResourceCategories.map((cat) => (
                     <MenuItem key={cat} value={cat}>
