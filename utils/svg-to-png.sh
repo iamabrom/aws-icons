@@ -2,7 +2,7 @@
 # ==================================================
 # Author: Abrom Douglas III
 # Bluesky: @abrom.dev
-# Website: https://AuthHQ.dev
+# Website: https://abrom.dev
 # License: MIT
 # Summary: This script can be used to batch convert SVGs to PNGs using Inkscape
 # ==================================================
