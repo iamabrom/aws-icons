@@ -46,7 +46,7 @@ const allResourceCategories = ["All", ...Array.from(resourceCategories).sort()];
 
 const sortedIcons = Object.entries(iconsByFolder)
   .sort(([a], [b]) => a.localeCompare(b))
-  .flatMap(([_, icons]) => icons.sort((a, b) => a.filename.localeCompare(b.filename)));
+  .flatMap(([, icons]) => icons.sort((a, b) => a.filename.localeCompare(b.filename)));
 
 function getFontSize(displayName: string): string {
   if (displayName.length > 36) return "0.75rem";
@@ -99,14 +99,14 @@ export default function App() {
   });
 
   const copyImageToClipboard = async (url: string, index: number) => {
-    const blob = await fetch(url).then((res) => res.blob());
     try {
+      const blob = await fetch(url).then((res) => res.blob());
       await navigator.clipboard.write([
         new window.ClipboardItem({ [blob.type]: blob }),
       ]);
       setCopiedIndex(index);
       setTimeout(() => setCopiedIndex(null), 1000);
-    } catch (err) {
+    } catch {
       alert("Failed to copy image.");
     }
   };
@@ -159,8 +159,8 @@ export default function App() {
           <Container maxWidth="lg">
             <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
               <Box display="flex" alignItems="center" gap={2} flexWrap="wrap">
-                <a href="https://iamabrom.github.io/aws-icons/">
-                  <img src="./awslogo.png" alt="AWS Icons Logo" style={{ height: 50 }} />
+                <a href="/">
+                  <img src="/awslogo.png" alt="AWS Icons Logo" style={{ height: 50 }} />
                 </a>
                 <Typography variant="h5" fontWeight={600} textAlign="center">
                   AWS Architecture Icons
